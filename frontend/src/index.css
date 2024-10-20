@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  * {
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  body {
+    background-color: rgba(14, 15, 20, 1);
+  }
+  .layout {
+    grid-template-columns: 200px 200px;
+    grid-template-rows: 50px 50px;
+    grid-gap: 10px;
+    padding: 16px;
+    border-radius: 5px;
+
+    box-shadow: 0px 0px 3px rgba(110, 110, 110, 0.295);
+  }
+}
