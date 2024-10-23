@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@types/axios": "^0.14.4",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.9",
+    "axios": "^1.7.7",
+    "cord": "^1.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}
