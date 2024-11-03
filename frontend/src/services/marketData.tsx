@@ -14,7 +14,7 @@ export async function marketData() {
 
 export async function tickers() {
     try {
-        const tickerData = await axios.get('http://localhost:8000');
+        const tickerData = await axios.get('http://localhost:8000/tickers');
           
         return tickerData.data;
     }

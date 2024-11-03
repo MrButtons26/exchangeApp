@@ -67,3 +67,14 @@ export function commaAdder(value: number) {
   }
   
 
+  export function chartValue(value:string){
+    const decimalLocation=value.split('').findIndex((el) => el === ".");
+    if(decimalLocation==1&&value[0]==='0'){
+      const nonZeroIndex=value.split('').findIndex(el=>el!='0'&&el!='.')
+      return value.slice(nonZeroIndex,nonZeroIndex+2);
+    }
+    else{
+      return value;
+    }
+  }
+  

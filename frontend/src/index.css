@@ -6,9 +6,12 @@
   * {
     box-sizing: border-box;
     font-family: sans-serif;
+    margin: 0px;
+    padding: 0px;
   }
   body {
     background-color: rgba(14, 15, 20, 1);
+
   }
   .layout {
     grid-template-columns: 200px 200px;
@@ -19,4 +22,51 @@
 
     box-shadow: 0px 0px 3px rgba(110, 110, 110, 0.295);
   }
+  .layout-table {
+  
+
+    box-shadow: 0px 0px 3px rgba(110, 110, 110, 0.164);
+  }
+  .layout-items {
+    box-shadow:  0px 1px rgba(129, 129, 129, 0.13);
+  }
+  .layout-items-header {
+    box-shadow:  0px 1px rgba(129, 129, 129, 0.13);
+  }
+  .layout-items:hover{
+    background-color:rgba(187, 185, 185, 0.13) ;
+  }
+  .layout-market-table {
+    box-shadow: 0px 0px 2px rgba(110, 110, 110, 0.473);
+  }
+  .dots{
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: rgba(14, 15, 20, 1);
+    border: 1px solid rgb(56 58 69);
+  } 
+  input[type="range"] {
+    /* ... */
+  
+    /*  styling the track  */
+    appearance: none;
+    height:4px;
+    background: rgb(56 58 69);
+    border-radius: 20px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    /* creating a custom design */
+    height: 15px;
+    width: 15px;
+    background-color: #0377fc;
+    border-radius: 50%;
+    z-index: 1;
+    position: relative;
+  }
+  
 }
+
