@@ -67,6 +67,22 @@
     z-index: 1;
     position: relative;
   }
-  
+  .grid-trade{
+    display: grid;
+    grid-template-columns:100px 75px 75px ;
+  }
+  .scroll-bar::-webkit-scrollbar{
+   width: 0px;
+  }
+  .bar::after{
+  content: '';
+  width: 4px;
+  height: 25px;
+  right: -1px;
+  position: absolute;
+  background:black;
+  transform:skewX(-6deg);
+  box-shadow: 1px 1px 8px black;
+  }
 }
 

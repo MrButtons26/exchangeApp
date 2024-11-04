@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { chartValue } from "../utils/pricePrettier";
-import { Chart as ChartJs,CategoryScale,LinearScale,PointElement,LineElement,title,Tooltip,Legend, plugins, Ticks } from "chart.js";
-import { color } from "chart.js/helpers";
+import { Chart as ChartJs,CategoryScale} from "chart.js";
 type LineChartProps={
     symbolName:string
     data:{symbol:string}[]

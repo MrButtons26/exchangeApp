@@ -78,3 +78,8 @@ export function commaAdder(value: number) {
     }
   }
   
+  export function timeFormat(value:number){
+    const time=new Date(value)
+    return `${String(time.getHours()).padStart(2,0)}:${String(time.getMinutes()).padStart(2,0)}:${String(time.getSeconds()).padEnd(2,'0')}`
+
+  }

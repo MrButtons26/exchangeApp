@@ -1,25 +1,19 @@
 import { useParams } from "react-router-dom"
-import { getDepthData, getTradeData, tradeTickers } from "../services/tradeData"
-import { useEffect, useState } from "react";
+import {  tradeTickers } from "../services/tradeData"
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import { commaAdder } from "../utils/pricePrettier";
 import usdc from "../assets/usdc.webp"
+import BookTable from "../components/BookTable";
+import TradeTable from "../components/TradeTable";
 export default function MarketPage() {
-    const [depth, setDepth] = useState<object>({});
-    const [trade, setTrades] = useState<object>({});
+
     const [activebtn, setActiveBtn] = useState<number>(1);
     const [activeLimit, setActiveLimit] = useState<number>(1);
+   const [activeBook,setActiveBook]=useState<number>(1);
 
     const { id } = useParams()
-    useEffect(() => {
-        (async function wrapper() {
-            const depthData = await getDepthData(id?.toUpperCase() || '')
-            const tradeData = await getTradeData(id?.toUpperCase() || '')
-            setDepth({ ...depthData })
-            setTrades({ ...tradeData })
-        })()
-    }, [])
     const { data: tickerData } = useQuery({
         queryKey: ["tradeTickersdata"],
         queryFn: () => tradeTickers(id.toUpperCase() || ''),
@@ -30,6 +24,7 @@ export default function MarketPage() {
         <Navbar></Navbar>
         <div className="flex w-full text-white mt-3  layout-market-table">
             {tickerData && <div className="flex font-semibold justify-between w-full">
+                <div className="flex flex-col">
                 <div className="flex gap-12 items-center ml-3 self-start" >
                 <h1 className="bg-gray-900 px-3  py-2 rounded-full">{id?.toUpperCase()} <ion-icon name="chevron-down-outline"></ion-icon></h1>
                 <h1><span className={`${tickerData[0]?.lastPrice < tickerData[0].firstPrice ? 'text-red-500' : 'text-green-500'} text-[20px]`}>{commaAdder(tickerData[0]?.lastPrice)}</span><br /><span className="text-[15px]">${tickerData[0]?.lastPrice}</span></h1>
@@ -37,6 +32,18 @@ export default function MarketPage() {
                 <h1><span className="text-[13px] font-bold text-gray-400">24H high</span><br /><span>${tickerData[0]?.high}</span></h1>
                 <h1><span className="text-[13px] font-bold text-gray-400">24H low</span><br /><span>${tickerData[0]?.low}</span></h1>
                 <h1><span className="text-[13px] font-bold text-gray-400">24H Volume (USDC)</span><br /><span>${String(tickerData[0]?.quoteVolume)}</span></h1>
+                </div>
+                <div className="flex">
+                    <div></div>
+                    <div className="flex flex-col">
+                     <div className="flex ">   
+                     <button  onClick={() => setActiveBook(1)} className={`mx-2 text-[14px] py-1 my-1 ml-5 ${activeBook===1&&'border-b-[1px] border-sky-400'}`}>Book</button>
+                     <button  onClick={() => setActiveBook(2)} className={`mx-2 text-[14px] py-1 my-1 ${activeBook===2&&'border-b-[1px] border-sky-400'}`}>Trades</button>                    </div>
+                    <>{activeBook===1?<BookTable id={id||''} price={tickerData[0]?.lastPrice} flag={tickerData[0]?.lastPrice < tickerData[0].firstPrice} ></BookTable>:
+                    <TradeTable id={id||''}></TradeTable>}
+                    </>
+                    </div>
+                </div>
             </div>
                 <div className="flex flex-col" style={{ boxShadow: "0px 0px 1px  rgba(110, 110, 110, 0.473)" }} >
                     <div className="flex  grow-1" >
