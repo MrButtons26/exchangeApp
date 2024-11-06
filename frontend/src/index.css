@@ -84,5 +84,8 @@
   transform:skewX(-6deg);
   box-shadow: 1px 1px 8px black;
   }
+  .trns{
+    transition: all 150ms ease-in-out;
+  }
 }
 

@@ -1,25 +1,30 @@
 import { useParams } from "react-router-dom"
 import {  tradeTickers } from "../services/tradeData"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useQuery } from "@tanstack/react-query";
 import { commaAdder } from "../utils/pricePrettier";
 import usdc from "../assets/usdc.webp"
 import BookTable from "../components/BookTable";
 import TradeTable from "../components/TradeTable";
+import SignalingManager from "../utils/SignalingManager";
 export default function MarketPage() {
-
     const [activebtn, setActiveBtn] = useState<number>(1);
     const [activeLimit, setActiveLimit] = useState<number>(1);
-   const [activeBook,setActiveBook]=useState<number>(1);
-
+    const [activeBook,setActiveBook]=useState<number>(1);
     const { id } = useParams()
+    useEffect(()=>{
+        SignalingManager.getInstance()
+        // SignalingManager.getInstance().sendMessage({"method":"SUBSCRIBE","params":[`depth.200ms.${id.toUpperCase()}_USDC`],"id":2}	)
+     return()=>{SignalingManager.getInstance().sendMessage({"method":"UNSUBSCRIBE","params":[`depth.200ms.${id.toUpperCase()}_USDC`]})
+     SignalingManager.getInstance().sendMessage({"method":"UNSUBSCRIBE","params":[`trade.${id.toUpperCase()}_USDC`]})}
+    },[])
     const { data: tickerData } = useQuery({
         queryKey: ["tradeTickersdata"],
-        queryFn: () => tradeTickers(id.toUpperCase() || ''),
-        staleTime: 20 * 1000,
+        queryFn: () => tradeTickers(id.toUpperCase() || ''),staleTime:1000*100
+        
     });
-
+    document.title=`${id?.toUpperCase()} - Backpack: Crypto Exchange`
     return <>
         <Navbar></Navbar>
         <div className="flex w-full text-white mt-3  layout-market-table">

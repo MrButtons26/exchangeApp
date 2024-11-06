@@ -62,7 +62,7 @@ const navigate=useNavigate();
                 {scaleCalculator(el.market_cap)}
               </h1>
               <h1 className="font-semibold min-w-[155px]">
-                {tickerData?.map((element)=>element.symbol===(el.symbol+'_usdc').toUpperCase()&&<h1>{scaleCalculator(element.quoteVolume,true)}</h1>)}
+                {tickerData?.map((element,i)=>element.symbol===(el.symbol+'_usdc').toUpperCase()&&<h1 key={i}>{scaleCalculator(element.quoteVolume,true)}</h1>)}
               </h1>
               <h1 className={`font-semibold min-w-[155px] ${String(el.currencies.usd.price_change_percentage_24hr)[0]==='-'?'text-red-400':'text-green-400'}`}>{percentage(el.currencies.usd.price_change_percentage_24hr)}%</h1>
               <LineChart symbolName={el.symbol} data={kLinesData}></LineChart>

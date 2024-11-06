@@ -2,23 +2,26 @@ import { getTradeData,  } from "../services/tradeData"
 import { useEffect,useState } from "react";
 import { timeFormat } from "../utils/pricePrettier";
 import spinner from "../assets/spinner.svg";
-
+import SignalingManager from "../utils/SignalingManager";
 type symbolData={
     id:string,
 }
-
 export default function TradeTable(symbolData:symbolData){
         const [trade, setTrades] = useState<object[]>([]);
+        const [mount,setMount]=useState<boolean>(false);
         useEffect(() => {
+            !mount&&SignalingManager.getInstance().sendMessage({"method":"SUBSCRIBE","params":[`trade.${symbolData.id.toUpperCase()}_USDC`]});
+            !mount&&SignalingManager.getInstance().registerCallback('trade',(data)=>{trade.unshift(data)},'1');
+            setMount(true);
             (async function wrapper() {
+              
                 const tradeData = await getTradeData(symbolData.id?.toUpperCase() || '')
-             
                 setTrades([...tradeData])
+                return()=>{SignalingManager.getInstance().sendMessage({"method":"UNSUBSCRIBE","params":[`trade.${symbolData.id.toUpperCase()}_USDC`]}) ; SignalingManager.getInstance().deRegisterCallback('trade') };
             })()
-        }, [])
-     
+        }, [trade])
 return(trade.length!=0?<div className="flex flex-col gap-[2px] max-h-[500px] ">
-<div className="grid-trade text-[12px] font-normal text-gray-400 pl-3"><h1>Price(USDC)</h1>
+<div className="grid-trade text-[13px] font-normal text-gray-400 pl-3 my-1"><h1>Price(USDC)</h1>
 <h1>Qty({symbolData.id.toUpperCase()})</h1>
 </div>
 <div className="overflow-x-hidden scroll-bar">
