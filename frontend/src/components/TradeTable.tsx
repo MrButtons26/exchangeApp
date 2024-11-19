@@ -3,6 +3,7 @@ import { useEffect,useState } from "react";
 import { timeFormat } from "../utils/pricePrettier";
 import spinner from "../assets/spinner.svg";
 import SignalingManager from "../utils/SignalingManager";
+
 type symbolData={
     id:string,
 }

@@ -8,6 +8,7 @@ import usdc from "../assets/usdc.webp"
 import BookTable from "../components/BookTable";
 import TradeTable from "../components/TradeTable";
 import SignalingManager from "../utils/SignalingManager";
+import CandleStickChart from "../components/CandleStickChart";
 export default function MarketPage() {
     const [activebtn, setActiveBtn] = useState<number>(1);
     const [activeLimit, setActiveLimit] = useState<number>(1);
@@ -43,10 +44,14 @@ export default function MarketPage() {
                     <div className="flex flex-col">
                      <div className="flex ">   
                      <button  onClick={() => setActiveBook(1)} className={`mx-2 text-[14px] py-1 my-1 ml-5 ${activeBook===1&&'border-b-[1px] border-sky-400'}`}>Book</button>
-                     <button  onClick={() => setActiveBook(2)} className={`mx-2 text-[14px] py-1 my-1 ${activeBook===2&&'border-b-[1px] border-sky-400'}`}>Trades</button>                    </div>
+                     <button  onClick={() => setActiveBook(2)} className={`mx-2 text-[14px] py-1 my-1 ${activeBook===2&&'border-b-[1px] border-sky-400'}`}>Trades</button>
+                    </div>
+                    <div className="flex">
+                    <CandleStickChart id={id||''}></CandleStickChart>
                     <>{activeBook===1?<BookTable id={id||''} price={tickerData[0]?.lastPrice} flag={tickerData[0]?.lastPrice < tickerData[0].firstPrice} ></BookTable>:
-                    <TradeTable id={id||''}></TradeTable>}
+                    <TradeTable id={id||''}></TradeTable>}  
                     </>
+                    </div>
                     </div>
                 </div>
             </div>

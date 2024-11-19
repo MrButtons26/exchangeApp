@@ -32,3 +32,13 @@ export async function tradeTickers(symbol:string) {
         console.log(e)
     }
 }
+export async function candleStickData(symbol:string) {
+    try {
+        const Data = await axios.get(`http://localhost:8000/klinescandles?symbol=${symbol}`);
+          
+        return Data.data
+    }
+    catch (e) {
+        console.log(e)
+    }
+}

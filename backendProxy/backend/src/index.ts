@@ -24,5 +24,9 @@ app.get('/depth',async (req,res)=>{
   const data=await axios.get(`https://api.backpack.exchange/api/v1/depth?symbol=${symbol}_USDC`)
 res.status(200).json(data.data)
 })
-
+app.get('/klinescandles',async (req,res)=>{
+  let symbol = req. query.symbol;
+  const data=await axios.get(`https://api.backpack.exchange/api/v1/klines?symbol=${symbol}_USDC&interval=1h&startTime=1729787400`)
+res.status(200).json(data.data)
+})
 app.listen(8000,()=>console.log('server listening at 8000'))
